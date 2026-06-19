@@ -7,16 +7,21 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div id="intro" class="intro" aria-label="开场动画">
+  <div id="intro" class="intro">
     <div class="intro-orbit"><span></span><span></span><span></span></div>
     <h1>欢迎使用K3的梦想单预测</h1>
-    <p>实时赔率 · 阵容对比 · 泊松比分 · 小组路径推理</p>
+    <p>实时赔率 · 手机号开通 · AI多模型 · 泊松比分</p>
     <button id="skipIntro">进入预测台</button>
   </div>
 
   <header class="topbar">
     <div class="brand"><span class="logo">K3</span><div><b>K3的梦想单预测</b><small>世界杯赛程分析与赔率计算</small></div></div>
-    <nav><a href="#odds">实时赔率</a><a href="#predict">单场预测</a><a href="#aiModels">AI多模型</a><a href="#path">晋级路径</a><button id="accountBtn" class="account-btn">登录/充值</button></nav>
+    <nav>
+      <a href="#odds">实时赔率</a>
+      <a href="#predict">单场预测</a>
+      <a href="#aiModels">AI多模型</a>
+      <button id="accountBtn" class="account-btn">登录/充值</button>
+    </nav>
   </header>
 
   <main>
@@ -24,42 +29,57 @@
       <div>
         <p class="eyebrow">Dream Ticket Forecast</p>
         <h1>把赔率、阵容和赛程压力放到同一个预测台</h1>
-        <p class="lead">选择每日比赛，参考实时赔率，输入胜平负/总进球/半场数据，系统会用泊松模型和球队画像输出比分、倾向和晋级影响。</p>
+        <p class="lead">选择每日比赛，参考实时赔率，输入胜平负、总进球和半场赔率，系统用泊松模型、球队画像和多模型观点输出比分、倾向和晋级影响。</p>
         <div class="actions"><a class="primary" href="#predict">开始分析</a><a class="ghost" href="https://jj.zhenzhunsp.cn/#/?tabindex=0" target="_blank" rel="noreferrer">打开实时赔率</a></div>
       </div>
-      <aside class="hero-card"><span>今日主推</span><strong id="heroPick">-</strong><p id="heroText">-</p></aside>
+      <aside class="hero-card"><span>当前主推</span><strong id="heroPick">-</strong><p id="heroText">-</p></aside>
     </section>
 
     <section id="odds" class="panel live-panel">
-      <div class="section-head"><div><h2>实时赔率参考</h2><p>优先尝试嵌入实时赔率页面；如果第三方限制嵌入，请点击按钮在新窗口打开，再把赔率填入下方计算器。</p></div><a class="mini" href="https://jj.zhenzhunsp.cn/#/?tabindex=0" target="_blank" rel="noreferrer">新窗口打开</a></div>
+      <div class="section-head"><div><h2>实时赔率参考</h2><p>优先尝试嵌入你提供的实时赔率页面。如果第三方禁止嵌入，请新窗口打开后把赔率填入计算器。</p></div><a class="mini" href="https://jj.zhenzhunsp.cn/#/?tabindex=0" target="_blank" rel="noreferrer">新窗口打开</a></div>
       <iframe title="实时赔率" src="https://jj.zhenzhunsp.cn/#/?tabindex=0" loading="lazy"></iframe>
-      <div class="iframe-note">如果这里空白或被拦截，说明对方网站禁止被第三方页面嵌入。预测功能仍可通过手动录入赔率使用。</div>
+      <div class="iframe-note">如果这里空白，通常是对方网站禁止 iframe 嵌入，不影响手动录入赔率计算。</div>
     </section>
 
-    <section id="predict" class="layout locked">`n      <div id="paywall" class="paywall"><div><b>预测功能需开通</b><span>手机号注册后充值 1.99 元即可使用 K3 的梦想单预测。</span></div><button id="openPaywall">立即开通</button></div>
+    <section id="predict" class="layout locked">
+      <div id="paywall" class="paywall"><div><b>预测功能需开通</b><span>手机号注册登录后，充值 1.99 元即可使用预测功能。</span></div><button id="openPaywall">立即开通</button></div>
       <aside class="side">
         <section class="panel"><h2>每日赛程</h2><label>日期<select id="dateSelect"></select></label></section>
         <section id="matchList" class="match-list"></section>
       </aside>
-
       <section class="desk">
         <section class="match-hero panel">
           <p id="meta" class="eyebrow dark">-</p>
           <h2 id="title">-</h2>
           <p id="context">-</p>
-          <div class="result-strip"><div><span>模型倾向</span><b id="pick">-</b></div><div><span>预期进球</span><b id="xg">-</b></div><div><span>大2.5</span><b id="over25">-</b></div></div>
+          <div class="result-strip"><div><span>模型倾向</span><b id="pick">-</b></div><div><span>预期进球</span><b id="xg">-</b></div><div><span>大 2.5</span><b id="over25">-</b></div></div>
         </section>
-
         <section class="grid two">
-          <article class="panel"><div class="section-head"><h2>泊松概率</h2><p>枚举 0-6 球比分矩阵，归一化后得到胜平负。</p></div><div class="prob"><div><span>主胜</span><b id="pH">-</b></div><div><span>平局</span><b id="pD">-</b></div><div><span>客胜</span><b id="pA">-</b></div></div><div id="scores" class="scores"></div></article>
-          <article class="panel"><div class="section-head"><h2>赔率录入</h2><p>支持胜平负、大小球、半场赔率；可参考中国体育彩票实时页面手动录入。</p></div><div class="odds"><label>主胜<input id="oH" type="number" step="0.01" min="1.01"></label><label>平局<input id="oD" type="number" step="0.01" min="1.01"></label><label>客胜<input id="oA" type="number" step="0.01" min="1.01"></label><label>大2.5<input id="oO" type="number" step="0.01" min="1.01"></label><label>小2.5<input id="oU" type="number" step="0.01" min="1.01"></label><label>半场平<input id="oHT" type="number" step="0.01" min="1.01"></label></div><div id="oddsText" class="note"></div></article>
+          <article class="panel"><div class="section-head"><h2>泊松概率</h2><p>枚举 0-6 球比分矩阵，归一化后得到胜平负和常见比分。</p></div><div class="prob"><div><span>主胜</span><b id="pH">-</b></div><div><span>平局</span><b id="pD">-</b></div><div><span>客胜</span><b id="pA">-</b></div></div><div id="scores" class="scores"></div></article>
+          <article class="panel"><div class="section-head"><h2>赔率录入</h2><p>参考中国体育彩票实时页面手动填入胜平负、大小球和半场赔率。</p></div><div class="odds"><label>主胜<input id="oH" type="number" step="0.01" min="1.01"></label><label>平局<input id="oD" type="number" step="0.01" min="1.01"></label><label>客胜<input id="oA" type="number" step="0.01" min="1.01"></label><label>大2.5<input id="oO" type="number" step="0.01" min="1.01"></label><label>小2.5<input id="oU" type="number" step="0.01" min="1.01"></label><label>半场平<input id="oHT" type="number" step="0.01" min="1.01"></label></div><div id="oddsText" class="note"></div></article>
         </section>
-
         <section class="grid two"><article id="compare" class="panel"></article><article id="path" class="panel"></article></section>
-        <section id="aiModels" class="panel"><div class="section-head"><h2>AI多模型预测</h2><p>前端展示多模型结论；真实调用千问、Gemini 需要后端代理和 API Key，不能直接暴露在浏览器。</p></div><div id="aiGrid" class="ai-grid"></div></section>`n        <section class="panel"><div class="section-head"><h2>梦想单推理</h2><p>组合倾向会随赔率录入变化。请把它当作分析面板，不是投注承诺。</p></div><div id="reason" class="reason"></div></section>
+        <section id="aiModels" class="panel"><div class="section-head"><h2>AI多模型预测</h2><p>K3 本地模型已启用；千问和 Gemini 预留后端接入口，正式调用不能把 API Key 放在浏览器。</p></div><div id="aiGrid" class="ai-grid"></div></section>
+        <section class="panel"><div class="section-head"><h2>梦想单推理</h2><p>组合倾向会随赔率录入变化。此页面是分析工具，不是投注承诺。</p></div><div id="reason" class="reason"></div></section>
       </section>
     </section>
-  </main>`n`n  <dialog id="authDialog" class="auth-dialog">`n    <form method="dialog" class="auth-box">`n      <button class="close" value="cancel" aria-label="关闭">×</button>`n      <h2>手机号注册 / 充值开通</h2>`n      <p>输入手机号创建使用记录。真实短信验证码和支付宝自动到账验证需要后端服务与商户接口。</p>`n      <label>手机号<input id="phoneInput" type="tel" placeholder="请输入手机号" /></label>`n      <div class="pay-card"><span>充值金额</span><b>¥1.99</b><small>支付宝收款码 / 商户支付接口待配置</small></div>`n      <div id="alipayBox" class="alipay-box">支付宝收款码待添加</div>`n      <label>管理员授权码<input id="unlockCode" type="text" placeholder="测试版可输入 K3-2026" /></label>`n      <button id="activateBtn" type="button" class="activate">开通预测</button>`n      <div id="authHint" class="auth-hint"></div>`n    </form>`n  </dialog>`n`n  <footer>数据为演示模型。临场首发、伤停、盘口变化和官方赛程更新会改变判断。</footer>
+  </main>
+
+  <dialog id="authDialog" class="auth-dialog">
+    <form method="dialog" class="auth-box">
+      <button class="close" value="cancel" aria-label="关闭">×</button>
+      <h2>手机号注册 / 充值开通</h2>
+      <p>输入手机号创建本机登录记录。正式版需要短信验证码服务、支付宝商户接口和服务端到账回调。</p>
+      <label>手机号<input id="phoneInput" type="tel" placeholder="请输入 11 位手机号" /></label>
+      <div class="pay-card"><span>充值金额</span><b>¥1.99</b><small>支付宝收款码或商户支付接口待配置</small></div>
+      <div id="alipayBox" class="alipay-box">支付宝收款码待添加</div>
+      <label>测试授权码<input id="unlockCode" type="text" placeholder="测试版输入 K3-2026" /></label>
+      <button id="activateBtn" type="button" class="activate">开通预测</button>
+      <div id="authHint" class="auth-hint"></div>
+    </form>
+  </dialog>
+
+  <footer>数据为演示模型。临场首发、伤停、盘口变化和官方赛程更新会改变判断。</footer>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
