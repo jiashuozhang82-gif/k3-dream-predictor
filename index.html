@@ -20,7 +20,7 @@
       <a href="#odds">实时赔率</a>
       <a href="#predict">单场预测</a>
       <a href="#aiModels">AI多模型</a><a href="#strategyLab">策略实验室</a>
-      <button id="accountBtn" class="account-btn">登录/充值</button>
+      <button id="accountBtn" class="account-btn">手机号登录</button>
     </nav>
   </header>
 
@@ -42,7 +42,7 @@
     </section>
 
     <section id="predict" class="layout locked">
-      <div id="paywall" class="paywall"><div><b>预测功能需开通</b><span>手机号注册登录后，充值 1.99 元即可使用预测功能。</span></div><button id="openPaywall">立即开通</button></div>
+      <div id="paywall" class="paywall"><div><b>预测功能需开通</b><span>手机号注册登录后即可使用预测功能。</span></div><button id="openPaywall">立即登录</button></div>
       <aside class="side">
         <section class="panel"><h2>每日赛程</h2><label>日期<select id="dateSelect"></select></label></section>
         <section id="matchList" class="match-list"></section>
@@ -75,15 +75,15 @@
   </main>  <dialog id="authDialog" class="auth-dialog">
     <form method="dialog" class="auth-box">
       <button class="close" value="cancel" aria-label="关闭">×</button>
-      <h2>手机号注册 / 充值开通</h2>
-      <p>当前采用人工开通：用户支付 1.99 元后，把手机号和付款截图发给管理员；管理员核对到账后发放授权码。自动到账开通需要后续接入支付宝商户支付回调。</p>
+      <h2>手机号注册 / 登录</h2>
+      <p>输入手机号即可在当前浏览器创建登录记录并使用预测功能。管理员授权码工具保留为可选管理入口。</p>
       <label>手机号<input id="phoneInput" type="tel" placeholder="请输入 11 位手机号" /></label>
-      <div class="pay-card"><span>充值金额</span><b>¥1.99</b><small>扫码付款后联系管理员人工核验</small></div>
-      <div id="alipayBox" class="alipay-box"><img src="./assets/alipay-qr.jpg" alt="支付宝收款码" /></div>
-      <label>授权码<input id="unlockCode" type="text" placeholder="管理员核验后发放授权码" /></label>
-      <button id="activateBtn" type="button" class="activate">开通预测</button>
+      <div class="pay-card"><span>登录方式</span><b>手机号</b><small>当前版本为本机登录记录，正式多设备同步需要数据库和短信服务</small></div>
+      <div id="alipayBox" class="alipay-box">手机号登录后即可使用预测功能</div>
+      <label>授权码<input id="unlockCode" type="text" placeholder="可选：管理员授权码" /></label>
+      <button id="activateBtn" type="button" class="activate">登录并进入预测</button>
       <details class="admin-tools">
-        <summary>管理员生成授权码</summary>
+        <summary>管理员授权码工具（可选）</summary>
         <label>后台口令<input id="adminPassword" type="password" placeholder="仅管理员使用" /></label>
         <button id="generateCodeBtn" type="button" class="mini">生成当前手机号授权码</button>
         <div id="adminCodeResult" class="auth-hint"></div>
