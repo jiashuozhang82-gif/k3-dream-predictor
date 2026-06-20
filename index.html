@@ -82,6 +82,12 @@
       <div id="alipayBox" class="alipay-box"><img src="./assets/alipay-qr.jpg" alt="支付宝收款码" /></div>
       <label>授权码<input id="unlockCode" type="text" placeholder="管理员核验后发放授权码" /></label>
       <button id="activateBtn" type="button" class="activate">开通预测</button>
+      <details class="admin-tools">
+        <summary>管理员生成授权码</summary>
+        <label>后台口令<input id="adminPassword" type="password" placeholder="仅管理员使用" /></label>
+        <button id="generateCodeBtn" type="button" class="mini">生成当前手机号授权码</button>
+        <div id="adminCodeResult" class="auth-hint"></div>
+      </details>
       <div id="authHint" class="auth-hint"></div>
     </form>
   </dialog>
