@@ -68,21 +68,19 @@
           </div>
           <div id="oddsHistory" class="history"></div>
         </section>        <section class="grid two"><article id="compare" class="panel"></article><article id="path" class="panel"></article></section>
-        <section id="aiModels" class="panel"><div class="section-head"><h2>AI多模型预测</h2><p>K3 本地模型已启用；千问和 Gemini 预留后端接入口，正式调用不能把 API Key 放在浏览器。</p></div><div id="aiGrid" class="ai-grid"></div></section>
+        <section id="aiModels" class="panel"><div class="section-head"><h2>AI多模型预测</h2><p>K3 本地模型已启用；千问和 DeepSeek 通过服务端代理接入，正式调用不能把 API Key 放在浏览器。</p></div><div id="aiGrid" class="ai-grid"></div></section>
         <section class="panel"><div class="section-head"><h2>梦想单推理</h2><p>组合倾向会随赔率录入变化。此页面是分析工具，不是投注承诺。</p></div><div id="reason" class="reason"></div></section>
       </section>
     </section>
-  </main>
-
-  <dialog id="authDialog" class="auth-dialog">
+  </main>  <dialog id="authDialog" class="auth-dialog">
     <form method="dialog" class="auth-box">
       <button class="close" value="cancel" aria-label="关闭">×</button>
       <h2>手机号注册 / 充值开通</h2>
-      <p>输入手机号创建本机登录记录。正式版需要短信验证码服务、支付宝商户接口和服务端到账回调。</p>
+      <p>当前采用人工开通：用户支付 1.99 元后，把手机号和付款截图发给管理员；管理员核对到账后发放授权码。自动到账开通需要后续接入支付宝商户支付回调。</p>
       <label>手机号<input id="phoneInput" type="tel" placeholder="请输入 11 位手机号" /></label>
-      <div class="pay-card"><span>充值金额</span><b>¥1.99</b><small>支付宝收款码或商户支付接口待配置</small></div>
-      <div id="alipayBox" class="alipay-box">支付宝收款码待添加</div>
-      <label>测试授权码<input id="unlockCode" type="text" placeholder="测试版输入 K3-2026" /></label>
+      <div class="pay-card"><span>充值金额</span><b>¥1.99</b><small>扫码付款后联系管理员人工核验</small></div>
+      <div id="alipayBox" class="alipay-box"><img src="./assets/alipay-qr.jpg" alt="支付宝收款码" /></div>
+      <label>授权码<input id="unlockCode" type="text" placeholder="管理员核验后发放授权码" /></label>
       <button id="activateBtn" type="button" class="activate">开通预测</button>
       <div id="authHint" class="auth-hint"></div>
     </form>
